@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig to read more about this file */
+    "jsx": "react-jsx",
+    "noUnusedLocals": false,
+    "esModuleInterop": true
+  },
+  "include": ["src", "types/index.d.ts"],
+  "exclude": ["/node_modules/"]
+}
