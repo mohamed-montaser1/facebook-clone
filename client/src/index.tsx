@@ -5,9 +5,7 @@ import LoginProvider from "./Context/Login";
 const root = createRoot(document.getElementById("root"));
 
 root.render(
-  <React.StrictMode>
-    <LoginProvider>
-      <App />
-    </LoginProvider>
-  </React.StrictMode>
+  <LoginProvider>
+    <App />
+  </LoginProvider>
 );

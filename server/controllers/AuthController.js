@@ -18,9 +18,8 @@ const { signJWT } = require("../utilities/jwtHelper");
  */
 
 exports.signUp = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password } = req.body.data;
   const user = await User.findOne({ email });
-
   if (user == null) {
     // Create User
     const user = User({
@@ -35,14 +34,14 @@ exports.signUp = async (req, res) => {
         message: "Saved Successfuly!",
       });
     } catch (error) {
-      res.status(400).json({
+      res.json({
         success: false,
         message: `Error Is: ${error}`,
       });
     }
   } else {
     // ? If there is similar users
-    res.status(400).json({
+    res.json({
       success: true,
       message: "There Is Already User With This Email",
     });
@@ -64,7 +63,7 @@ exports.signUp = async (req, res) => {
  */
 
 exports.login = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password } = req.body.data;
   const user = await User.findOne({ email });
 
   if (user != null) {
@@ -86,7 +85,7 @@ exports.login = async (req, res) => {
     }
     return;
   }
-  res.status(404).json({
+  res.json({
     success: true,
     message: "There Is No User With Submited Email",
   });

@@ -12,7 +12,7 @@ import Register from "./pages/Register";
 
 export default function App() {
   const { isLoggedIn } = useLogin();
-  console.log(isLoggedIn);
+
   return (
     <Router>
       <Routes>

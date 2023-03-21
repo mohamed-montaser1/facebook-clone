@@ -1,12 +1,17 @@
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import "../scss/styles.scss";
 import { UilEye, UilEyeSlash } from "@iconscout/react-unicons";
+import api_key from "../Services/Api_Url";
+import { LoginType, SignupType } from "../../types/mainTypes";
+import axios from "axios";
+import { useLogin } from "../Context/Login";
 
 let emailReg =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export default function Login() {
+  let { jwt, setJwt, setIsLoggedIn, isLoggedIn } = useLogin();
   //  email error message
   const emailRef = useRef<HTMLInputElement>(null);
   const emailErrorMessage = useRef<HTMLParagraphElement>(null);
@@ -16,16 +21,54 @@ export default function Login() {
 
   const [isShowPassword, setIsShowPassword] = useState(false);
 
+  const LoginReq = async ({ email, password }: LoginType) => {
+    const res = await axios.post(`${api_key}/auth/login`, {
+      data: {
+        email,
+        password,
+      },
+    });
+    let data = res.data;
+    setJwt(data.data.accessToken);
+    localStorage.setItem("jwt", data.data.accessToken);
+    setIsLoggedIn(true);
+    localStorage.setItem("isLoggedin", "true");
+  };
+
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     // validate email
-    if (emailRef.current.value.toLowerCase().match(emailReg) === null)
+    if (emailRef.current.value.toLowerCase().match(emailReg) === null) {
       emailErrorMessage.current.innerText = "Please Enter A Valid Email !";
+      emailRef.current.classList.add("invalid");
+    } else {
+      emailErrorMessage.current.innerText = "";
+      emailRef.current.classList.remove("invalid");
+    }
     // validate password
     if (passwordRef.current.value.length <= 6) {
       passwordErrorMessage.current.innerText = "Password Is Too Short !";
+      passwordRef.current.classList.add("invalid");
     } else {
       passwordErrorMessage.current.innerText = "";
+      passwordRef.current.classList.remove("invalid");
+    }
+    let inputs = [emailRef.current, passwordRef.current];
+    let invalidInputs = [];
+    for (let i = 0; i < inputs.length; i++) {
+      if (inputs[i].classList.contains("invalid")) {
+        invalidInputs.push(inputs[i]);
+      }
+    }
+
+    if (invalidInputs.length === 0) {
+      // send req
+      console.log(typeof emailRef.current.value);
+      console.log(typeof passwordRef.current.value);
+      LoginReq({
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+      });
     }
   }
 
@@ -49,6 +92,7 @@ export default function Login() {
   document.body.classList.add("login-page");
   return (
     <>
+      {isLoggedIn ? <Navigate to={"/"} /> : ""}
       <div className="about">
         <h1>Mohamed Montaser's Social Media</h1>
         <p style={{ textTransform: "capitalize" }}>
@@ -77,7 +121,7 @@ export default function Login() {
         </div>
         <div className="form-control form-username">
           <label htmlFor="password" className="label">
-            Password
+            Password:
           </label>
           <div className="input">
             <input

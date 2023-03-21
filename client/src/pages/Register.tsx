@@ -1,12 +1,19 @@
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import "../scss/styles.scss";
 import { UilEye, UilEyeSlash } from "@iconscout/react-unicons";
+import api_key from "../Services/Api_Url";
+import axios from "axios";
+import { useLogin } from "../Context/Login";
+import Alert from "../Components/Alert";
+import { SignupType } from "../../types/mainTypes";
 
 let emailReg =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 export default function Register() {
+  const { alreadyExist, setAlreadyExist, isSignedUp, setIsSignedUp } =
+    useLogin();
   // email error message
   const usernameRef = useRef<HTMLInputElement>(null);
   const usernameErrorMessage = useRef<HTMLParagraphElement>(null);
@@ -19,20 +26,61 @@ export default function Register() {
 
   const [isShowPassword, setIsShowPassword] = useState(false);
 
+  const Signup = async ({ username, email, password }: SignupType) => {
+    const res = await axios.post(`${api_key}/auth/signup`, {
+      data: {
+        username,
+        email,
+        password,
+      },
+    });
+    let data = res.data;
+    let message = data.message;
+    if (message == "There Is Already User With This Email") {
+      setAlreadyExist(true);
+    } else {
+      setAlreadyExist(false);
+      setIsSignedUp(true);
+    }
+  };
+
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     // validate username
     if (usernameRef.current.value === "") {
       usernameErrorMessage.current.innerText = "Please Enter Your Username";
+      usernameRef.current.classList.add("invalid");
+    } else {
+      usernameRef.current.classList.remove("invalid");
     }
     // validate email
-    if (emailRef.current.value.toLowerCase().match(emailReg) === null)
+    if (emailRef.current.value.toLowerCase().match(emailReg) === null) {
       emailErrorMessage.current.innerText = "Please Enter A Valid Email !";
+      emailRef.current.classList.add("invalid");
+    } else {
+      emailRef.current.classList.remove("invalid");
+    }
     // validate password
     if (passwordRef.current.value.length <= 6) {
       passwordErrorMessage.current.innerText = "Password Is Too Short !";
+      passwordRef.current.classList.add("invalid");
     } else {
-      passwordErrorMessage.current.innerText = "";
+      passwordRef.current.classList.remove("invalid");
+    }
+    let inputs = [usernameRef.current, emailRef.current, passwordRef.current];
+    let invalidInputs = [];
+    for (let i = 0; i < inputs.length; i++) {
+      if (inputs[i].classList.contains("invalid")) {
+        invalidInputs.push(inputs[i]);
+      }
+    }
+    if (invalidInputs.length === 0) {
+      // send request
+      Signup({
+        username: usernameRef.current.value,
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+      });
     }
   }
 
@@ -63,6 +111,8 @@ export default function Register() {
   document.body.classList.add("login-page");
   return (
     <>
+      {alreadyExist ? Alert("There is already user with submited email") : ""}
+      {isSignedUp ? <Navigate to={"/login"} /> : ""}
       <div className="about">
         <h1>Mohamed Montaser's Social Media</h1>
         <p style={{ textTransform: "capitalize" }}>
@@ -77,7 +127,7 @@ export default function Register() {
         spellCheck="false"
       >
         <div className="form-control form-username">
-          <label htmlFor="email" className="label">
+          <label htmlFor="username" className="label">
             Username:
           </label>
           <input
@@ -104,7 +154,7 @@ export default function Register() {
         </div>
         <div className="form-control form-username">
           <label htmlFor="password" className="label">
-            Password
+            Password:
           </label>
           <div className="input">
             <input
