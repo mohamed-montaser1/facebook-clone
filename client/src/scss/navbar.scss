@@ -1,6 +1,7 @@
 .navbar {
   border-bottom: 1px solid black;
   box-shadow: 0 2px 16px 0px rgb(190, 190, 190);
+  background-color: #eee;
 }
 
 .Polaris-Icon--applyColor {
@@ -39,4 +40,25 @@
       height: 30px !important;
     }
   }
+}
+
+.show {
+  display: flex !important;
+}
+
+.search-bar {
+  position: absolute;
+  z-index: -1;
+  transition: all 0.3s ease-in-out;
+}
+
+.search-bar.top {
+  top: 0;
+}
+.search-bar.bottom {
+  top: 74px;
+}
+
+.z-100 {
+  z-index: 10000;
 }
