@@ -1,0 +1,42 @@
+.navbar {
+  border-bottom: 1px solid black;
+  box-shadow: 0 2px 16px 0px rgb(190, 190, 190);
+}
+
+.Polaris-Icon--applyColor {
+  margin: auto 20px auto 0 !important;
+  cursor: pointer;
+}
+
+.navbar-brand {
+  color: hsl(214, 89%, 52%) !important;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.col-none {
+  display: none !important;
+}
+
+.show-md {
+  display: block !important;
+}
+
+@media (max-width: 417px) {
+  .navbar {
+    .brand {
+      .navbar-brand {
+        font-size: 16px;
+      }
+      svg {
+        width: 16px;
+      }
+    }
+    .Polaris-Icon__Svg {
+      width: 16px;
+    }
+    img {
+      width: 30px !important;
+      height: 30px !important;
+    }
+  }
+}

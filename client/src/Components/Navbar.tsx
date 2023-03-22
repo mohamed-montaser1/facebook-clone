@@ -1,14 +1,8 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
-
 import { NotificationMajor, SearchMajor } from "@shopify/polaris-icons";
 import { Icon } from "@shopify/polaris";
-
-let colors = {
-  blue: "hsl(214, 89%, 52%)",
-  black: "#000",
-};
 
 export default function Navbar() {
   return (
