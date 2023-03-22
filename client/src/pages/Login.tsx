@@ -33,6 +33,7 @@ export default function Login() {
     localStorage.setItem("jwt", data.data.accessToken);
     setIsLoggedIn(true);
     localStorage.setItem("isLoggedin", "true");
+    window.location.href = window.location.origin;
   };
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -92,7 +93,6 @@ export default function Login() {
   document.body.classList.add("login-page");
   return (
     <>
-      {isLoggedIn ? <Navigate to={"/"} /> : ""}
       <div className="about">
         <h1>Mohamed Montaser's Social Media</h1>
         <p style={{ textTransform: "capitalize" }}>
