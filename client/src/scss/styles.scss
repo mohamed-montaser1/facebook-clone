@@ -13,7 +13,34 @@
 }
 
 .navbar-brand {
-  color: hsl(214, 89%, 52%);
+  color: hsl(214, 89%, 52%) !important;
   font-weight: bold;
   text-transform: capitalize;
+}
+.col-none {
+  display: none !important;
+}
+
+.show-md {
+  display: block !important;
+}
+
+@media (max-width: 417px) {
+  .navbar {
+    .brand {
+      .navbar-brand {
+        font-size: 16px;
+      }
+      svg {
+        width: 16px;
+      }
+    }
+    .Polaris-Icon__Svg {
+      width: 16px;
+    }
+    img {
+      width: 30px !important;
+      height: 30px !important;
+    }
+  }
 }

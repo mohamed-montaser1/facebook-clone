@@ -2,7 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 
-import { NotificationMajor } from "@shopify/polaris-icons";
+import { NotificationMajor, SearchMajor } from "@shopify/polaris-icons";
 import { Icon } from "@shopify/polaris";
 
 let colors = {
@@ -15,10 +15,15 @@ export default function Navbar() {
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container">
-          <a className="navbar-brand col-sm-4" href="#">
-            mohamed montaser
-          </a>
-          <div className="d-flex col-sm-4 justify-content-center">
+          <div className="brand col-sm-4 col-md-6 d-flex justify-content-center align-items-center">
+            <a className="navbar-brand" href="#">
+              mohamed
+            </a>
+            <div className="d-block">
+              <Icon source={SearchMajor} color="base" />
+            </div>
+          </div>
+          <div className="d-flex col-sm-4 col-none justify-content-center">
             <form role="search">
               <input
                 className="form-control"
@@ -28,7 +33,7 @@ export default function Navbar() {
               />
             </form>
           </div>
-          <div className="col-sm-4 d-flex justify-content-end">
+          <div className="col-sm-4 col-md-6 d-flex justify-content-center">
             <Icon source={NotificationMajor} color="base" />
             <img
               src={require("../images/profile pic.jpg")}
