@@ -13,6 +13,7 @@ const LoginProvider: FC<loginProvider> = ({ children }): JSX.Element => {
   const [alreadyExist, setAlreadyExist] = useState<boolean>(false);
   const [isSignedUp, setIsSignedUp] = useState<boolean>(false);
   const [jwt, setJwt] = useState<string>(jwtInitValue);
+
   const LoginValue = {
     isLoggedIn,
     setIsLoggedIn,
