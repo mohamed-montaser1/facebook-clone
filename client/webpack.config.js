@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
+const MomentLocalesPlugin = require("moment-locales-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.tsx",
@@ -18,7 +19,7 @@ module.exports = {
     open: true,
     compress: true,
     port: 3000,
-    historyApiFallback: true
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -63,5 +64,8 @@ module.exports = {
       template: "./public/index.html",
     }),
     new MiniCssExtractPlugin({ filename: "css/style.css" }),
+    new MomentLocalesPlugin({
+      localesToKeep: ["ar-EG"],
+    }),
   ],
 };

@@ -4,11 +4,13 @@
 @import "./navbar.scss";
 @import "./sidebar.scss";
 @import "./post.scss";
+@import "./modal.scss";
 
 .page {
   top: 68px;
   position: fixed;
   width: 100%;
+  z-index: 1000000012;
   .content {
     position: fixed;
     left: 300px;
@@ -18,6 +20,7 @@
     overflow-y: scroll;
     .post-container {
       width: fit-content;
+      padding-bottom: 100px;
     }
     .create-post {
       width: 494px;

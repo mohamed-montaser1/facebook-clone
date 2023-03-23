@@ -1,27 +1,31 @@
-import React, { useState } from "react";
-import { BiLike, BiComment, BiShare, BiUnlink } from "react-icons/bi";
+import { useState } from "react";
+import { BiShare } from "react-icons/bi";
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { MdInsertComment, MdOutlineComment } from "react-icons/md";
 import Comments from "./Comments";
+import moment from "moment";
 
 interface Props {
+  _id: string;
   username: string;
   createdAt?: Date;
   content: string;
   comments: number;
   likes: number;
+  date: any;
 }
 
 export default function Post({
+  _id,
   username,
-  createdAt,
   content,
   comments,
   likes,
+  date,
 }: Props) {
   let [show, setShow] = useState<boolean>(true);
   let [isLiked, setIsLiked] = useState<boolean>(false);
-
+  let date1 = moment(date, "YYYY-MM-DD").fromNow();
   return (
     <>
       <div className="post">
@@ -33,7 +37,7 @@ export default function Post({
             />
             <div className="author__info">
               <h4>{username}</h4>
-              <small>12 h</small>
+              <small>{date1}</small>
             </div>
           </div>
         </div>
@@ -63,7 +67,7 @@ export default function Post({
             </div>
           </div>
         </div>
-        {show ? <Comments /> : ""}
+        {show ? <Comments post_id={_id} /> : ""}
       </div>
     </>
   );

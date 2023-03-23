@@ -12,8 +12,20 @@ export interface loginType {
 }
 
 export interface postContextType {
-  posts: postsType,
-  setPosts: React.Dispatch<React.SetStateAction<postsType>>
+  posts: postsType;
+  setPosts: React.Dispatch<React.SetStateAction<postsType>>;
+}
+
+export interface UserContextType {
+  avatar: string;
+  setAvatar: React.Dispatch<React.SetStateAction<string>>;
+  email: string;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  id: string;
+  setId: React.Dispatch<React.SetStateAction<string>>;
+  username: string;
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
+  getUserData: () => Promise<void>;
 }
 
 export interface userType {
@@ -23,6 +35,10 @@ export interface userType {
 export type loginProvider = {
   // children: Array<JSX.Element>;
   children: React.ReactNode;
+};
+
+export type postsProviderType = {
+  children: JSX.Element | JSX.IntrinsicElements;
 };
 
 export type userProvider = {
@@ -52,4 +68,11 @@ export type postsType = Array<{
   comments_count: number;
   createdAt: Date;
   updatedAt: Date;
+  date: Date;
 }>;
+
+export type comments = {
+  username: string;
+  user_avatar: string;
+  user_comment: string;
+}[];

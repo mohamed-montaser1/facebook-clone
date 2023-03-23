@@ -105,10 +105,10 @@ exports.me = async (req, res) => {
   res.json({
     success: true,
     data: {
-      id: user._id,
-      username: user.username,
-      email: user.email,
-      avatar: user.avatar,
+      id: user?._id,
+      username: user?.username,
+      email: user?.email,
+      avatar: user?.avatar,
     },
   });
 };
