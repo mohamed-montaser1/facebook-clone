@@ -1,14 +1,10 @@
-export default function Comment() {
+export default function Comment({ username, user_comment }) {
   return (
     <div className="comment">
-      <img src={require("../images/profile pic.jpg")} alt="" />
+      <img src={require("../images/profile pic.jpg")} alt="profile picture" />
       <div className="comment__content">
-        <h4 className="author-name">mohamed montaser</h4>
-        <p className="comment-content">
-          hello my name is mohamed montaser and this is my comment about your
-          post, your post is very good bro 👍, you can improve your skills with
-          creating big projects like facebook-clone
-        </p>
+        <h4 className="author-name">{username}</h4>
+        <p className="comment-content">{user_comment}</p>
       </div>
     </div>
   );

@@ -20,6 +20,19 @@ exports.getAll = async (req, res) => {
  * @param {Response} res
  */
 
+exports.getOne = async (req, res) => {
+  const { id } = req.params;
+  const post = await Post.findById(id);
+
+  res.json(post);
+};
+
+/**
+ *
+ * @param {Request} req
+ * @param {Response} res
+ */
+
 exports.create = async (req, res) => {
   const { author_name, author_avatar, content } = req.body.data;
 
@@ -66,5 +79,33 @@ exports.deletePost = async (req, res) => {
     res.json({
       error,
     });
+  }
+};
+/**
+ *
+ * @param {Request} req
+ * @param {Response} res
+ */
+exports.addComment = async (req, res) => {
+  const { id } = req.params;
+  let { username, user_avatar, user_comment } = req.body.data;
+  let post = await Post.findById(id);
+  // post.comments_content.push({ username, user_avatar, user_comment });
+  if (post.comments_content.length > 0) {
+    post.comments_content = [
+      ...post.comments_content,
+      { username, user_avatar, user_comment },
+    ];
+  } else post.comments_content = [{ username, user_avatar, user_comment }];
+
+  try {
+    await post.save();
+    res.status(200).json({
+      success: true,
+      message: "Comment Inserted Successfuly",
+    });
+  } catch (error) {
+    console.log(error);
+    res.json(error);
   }
 };

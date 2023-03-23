@@ -15,11 +15,21 @@ const PostSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
-    comments_content: [],
+    comments_content: [
+      {
+        username: String,
+        user_avatar: String,
+        user_comment: String,
+      },
+    ],
     comments_count: {
       type: Number,
       required: true,
     },
+    date: {
+      type: Date,
+      default: Date.now()
+    }
   },
   {
     timestamps: true,

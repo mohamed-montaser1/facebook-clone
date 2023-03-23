@@ -21,6 +21,7 @@ export default function Sidebar() {
       let username = data.username;
       let userAvatar = data.avatar;
 
+      console.log(jwt);
       setUsername(username);
       setAvatar([...avatar, userAvatar]);
     };
