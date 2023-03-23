@@ -25,7 +25,6 @@ export default function Post({
 }: Props) {
   let [show, setShow] = useState<boolean>(true);
   let [isLiked, setIsLiked] = useState<boolean>(false);
-  let date1 = moment(date, "YYYY-MM-DD").fromNow();
   return (
     <>
       <div className="post">
@@ -37,7 +36,7 @@ export default function Post({
             />
             <div className="author__info">
               <h4>{username}</h4>
-              <small>{date1}</small>
+              <small>{moment(date).fromNow()}</small>
             </div>
           </div>
         </div>
