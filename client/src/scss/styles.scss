@@ -2,88 +2,52 @@
 @import "./global";
 @import "./login-register.scss";
 @import "./navbar.scss";
+@import "./sidebar.scss";
+@import "./post.scss";
 
-.sidebar {
-  height: calc(100vh - 68px);
-  width: 300px;
-  padding: 20px 10px;
-  .sidebar-item {
-    display: flex;
-    padding: 10px 5px;
-    border-radius: 4px;
-    cursor: pointer;
-    align-items: center;
+.page {
+  top: 68px;
+  position: fixed;
+  width: 100%;
+  .content {
+    position: fixed;
+    left: 300px;
+    top: 68px;
     width: 100%;
-    &.home {
-      img {
-        border-radius: 0;
+    height: 100vh;
+    overflow-y: scroll;
+    .post-container {
+      width: fit-content;
+    }
+    .create-post {
+      width: 494px;
+      border: 1px solid rgba(100, 100, 100, 0.411);
+      background-color: white;
+      // min-height: 100px;
+      margin: 40px;
+      padding: 10px;
+      border-radius: 5px;
+      .create-post__header {
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50px;
+          margin-right: 20px;
+        }
+        button {
+          width: 80%;
+          height: 30px;
+          background-color: #f0f2f5;
+          color: #65676b;
+          border: none;
+          border-radius: 50px;
+          padding: 0 10px;
+          text-align: left;
+          &:active {
+            background-color: darken(#f0f2f5, 10%);
+          }
+        }
       }
-    }
-    @media (max-width: 1041px) {
-      width: 100%;
-    }
-    &.see-all {
-      img {
-        border-radius: 0 !important;
-      }
-    }
-    p {
-      text-transform: capitalize;
-      font-weight: 500;
-      font-size: 15px;
-      @media (max-width: 1041px) {
-        display: none;
-      }
-    }
-    svg {
-      fill: hsl(214, 89%, 52%) !important;
-      width: 24px !important;
-      height: 24px !important;
-      user-select: none;
-      @media (max-width: 1041px) {
-        width: 100%;
-        height: 100%;
-      }
-    }
-    img {
-      border-radius: 50%;
-      margin-right: 10px;
-      width: 24px;
-      height: 24px;
-      user-select: none;
-    }
-    &:hover {
-      background-color: #ddd;
-    }
-  }
-  .sidebar-section {
-    position: relative;
-    margin-bottom: 20px;
-    &.copyright {
-      display: flex;
-      align-items: end;
-      height: calc(90% - 308px);
-      &::after {
-        content: "";
-        height: 0;
-        width: 0;
-      }
-      @media (max-width: 1041px) {
-        display: none;
-      }
-    }
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: -14px;
-      // left: 15px;
-      height: 1px;
-      width: 100%;
-      background-color: rgba(71, 71, 71, 0.514);
-    }
-
-    @media (max-width: 1041px) {
-      width: 40px;
     }
   }
 }

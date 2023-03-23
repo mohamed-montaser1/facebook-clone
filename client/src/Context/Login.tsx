@@ -1,7 +1,7 @@
 import { useState, useContext, createContext, FC } from "react";
 import { loginProvider, loginType } from "../../types/mainTypes";
 
-const LoginContext = createContext<Partial<loginType>>({});
+const loginContext = createContext<Partial<loginType>>({});
 
 let initialLogin: boolean =
   Boolean(localStorage.getItem("isLoggedin")) || false;
@@ -26,13 +26,13 @@ const LoginProvider: FC<loginProvider> = ({ children }): JSX.Element => {
   };
   return (
     <>
-      <LoginContext.Provider value={LoginValue}>
+      <loginContext.Provider value={LoginValue}>
         {children}
-      </LoginContext.Provider>
+      </loginContext.Provider>
     </>
   );
 };
 
-export const useLogin = () => useContext(LoginContext);
+export const useLogin = () => useContext(loginContext);
 
 export default LoginProvider;

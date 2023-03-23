@@ -1,7 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SidebarItem from "./SidebarItem";
 import { HomeMinor } from "@shopify/polaris-icons";
+import axios from "axios";
+import api_key from "../Services/Api_Url";
+import { useLogin } from "../Context/Login";
 export default function Sidebar() {
+  let [username, setUsername] = useState<string>("");
+  let [avatar, setAvatar] = useState<string[]>([]);
+
+  const { jwt } = useLogin();
+  let config = {
+    headers: {
+      authorization: jwt,
+    },
+  };
+  useEffect(() => {
+    const getUserData = async () => {
+      let res = await axios.get(`${api_key}/auth/me`, config);
+      let data = res.data.data;
+      let username = data.username;
+      let userAvatar = data.avatar;
+
+      setUsername(username);
+      setAvatar([...avatar, userAvatar]);
+    };
+    getUserData();
+  }, []);
+
   return (
     <>
       <div className="sidebar">
@@ -10,7 +35,7 @@ export default function Sidebar() {
             hello
           </SidebarItem>
           <SidebarItem icon={require("../images/profile pic.jpg")}>
-            Mohamed Montaser
+            {username}
           </SidebarItem>
         </div>
         <div className="sidebar-section">

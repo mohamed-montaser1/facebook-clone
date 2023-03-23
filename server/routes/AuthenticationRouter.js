@@ -13,6 +13,6 @@ router.post("/login", login);
 
 // Me
 
-router.get("/me", [verifyJWT], me);
+router.get("/me", verifyJWT, me);
 
 module.exports = router;

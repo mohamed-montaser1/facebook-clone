@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 // routes
 const AuthRouter = require("./routes/AuthenticationRouter");
+const PostsRouter = require("./routes/PostsRouter");
 
 require("dotenv").config();
 const app = express();
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use("/api/auth", AuthRouter);
+app.use("/api/posts", PostsRouter);
 
 mongoose.connect(process.env.DB_URL).then(() => {
   console.log("Connected!");

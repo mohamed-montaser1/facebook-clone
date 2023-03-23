@@ -3,6 +3,10 @@
   box-shadow: 0 2px 16px 0px rgb(190, 190, 190);
   background-color: #eee;
   height: 68px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10000000;
 }
 
 .Polaris-Icon--applyColor {
@@ -48,7 +52,7 @@
 }
 
 .search-bar {
-  position: absolute;
+  position: fixed;
   z-index: -1;
   transition: all 0.3s ease-in-out;
 }
@@ -56,6 +60,7 @@
 .search-bar.top {
   top: 0;
 }
+
 .search-bar.bottom {
   top: 74px;
 }

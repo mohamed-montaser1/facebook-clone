@@ -26,12 +26,13 @@ export default function Register() {
 
   const [isShowPassword, setIsShowPassword] = useState(false);
 
-  const Signup = async ({ username, email, password }: SignupType) => {
+  const Signup = async ({ username, email, password, avatar }: SignupType) => {
     const res = await axios.post(`${api_key}/auth/signup`, {
       data: {
         username,
         email,
         password,
+        avatar,
       },
     });
     let data = res.data;
@@ -80,6 +81,7 @@ export default function Register() {
         username: usernameRef.current.value,
         email: emailRef.current.value,
         password: passwordRef.current.value,
+        avatar: "../images/profile pic.jpg",
       });
     }
   }

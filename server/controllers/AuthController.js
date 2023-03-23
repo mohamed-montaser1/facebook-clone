@@ -18,7 +18,8 @@ const { signJWT } = require("../utilities/jwtHelper");
  */
 
 exports.signUp = async (req, res) => {
-  const { username, email, password } = req.body.data;
+  const { username, email, password, avatar } = req.body.data;
+  console.log(req.body.data);
   const user = await User.findOne({ email });
   if (user == null) {
     // Create User
@@ -26,6 +27,7 @@ exports.signUp = async (req, res) => {
       username,
       email,
       password: bcrypt.hashSync(password, 8),
+      avatar,
     });
     try {
       await user.save();
@@ -99,12 +101,14 @@ exports.login = async (req, res) => {
 
 exports.me = async (req, res) => {
   let user = await User.findById(req.userId);
+
   res.json({
     success: true,
     data: {
       id: user._id,
       username: user.username,
       email: user.email,
+      avatar: user.avatar,
     },
   });
 };
