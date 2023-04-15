@@ -1,10 +1,8 @@
 import axios from "axios";
-import { useState, useContext, createContext, FC, useEffect } from "react";
+import React, { useState, useContext, createContext, useEffect } from "react";
 import {
-  loginProvider,
-  loginType,
-  postContextType,
-  postsType,
+  providerType,
+  setString,
   UserContextType,
 } from "../../types/mainTypes";
 import api_key from "../Services/Api_Url";
@@ -12,43 +10,58 @@ import { useLogin } from "./Login";
 
 const userContext = createContext<Partial<UserContextType>>({});
 
-const userProvider: FC<loginProvider> = ({ children }): JSX.Element => {
-  const [avatar, setAvatar] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [id, setId] = useState<string>("");
-  const [username, setUsername] = useState<string>("");
-  const { jwt } = useLogin();
+interface userData {
+  id: string;
+  username: string;
+  email: string;
+  avatar: string;
+}
 
+interface userValueType {
+  username: string;
+  setUsername: setString;
+  email: string;
+  setEmail: setString;
+  avatar: string;
+  setAvatar: setString;
+  id: string;
+}
+
+export default function UserProvider({ children }: providerType) {
+  const { jwt, isLoggedIn } = useLogin();
+  let [username, setUsername] = useState<string>("");
+  let [email, setEmail] = useState<string>("");
+  let [avatar, setAvatar] = useState<string>("");
+  let [id, setId] = useState<string>("");
   let config = {
     headers: {
       authorization: jwt,
     },
   };
-  const getUserData = async () => {
-    let res = await axios.get(`${api_key}/auth/me`, config);
-    let data: {
-      avatar: string;
-      email: string;
-      id: string;
-      username: string;
-    } = res.data.data;
 
-    setAvatar(data.avatar);
-    setEmail(data.email);
-    setId(data.id);
+  async function getUserData() {
+    const res = await axios.get(`${api_key}/auth/me`, config);
+    let data: userData = res.data.data;
     setUsername(data.username);
-  };
+    setEmail(data.email);
+    setAvatar(data.avatar);
+    setId(data.id);
+  }
 
-  const userValue = {
-    getUserData,
-    avatar,
-    setAvatar,
-    email,
-    setEmail,
-    id,
-    setId,
+  useEffect(() => {
+    if (isLoggedIn) {
+      getUserData();
+    }
+  }, []);
+
+  const userValue: userValueType = {
     username,
     setUsername,
+    email,
+    setEmail,
+    avatar,
+    setAvatar,
+    id,
   };
 
   return (
@@ -56,8 +69,6 @@ const userProvider: FC<loginProvider> = ({ children }): JSX.Element => {
       <userContext.Provider value={userValue}>{children}</userContext.Provider>
     </>
   );
-};
+}
 
 export const useUser = () => useContext(userContext);
-
-export default userProvider;

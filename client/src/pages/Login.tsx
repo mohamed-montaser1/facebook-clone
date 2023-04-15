@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../scss/styles.scss";
 import { UilEye, UilEyeSlash } from "@iconscout/react-unicons";
 import api_key from "../Services/Api_Url";
@@ -29,11 +29,14 @@ export default function Login() {
       },
     });
     let data = res.data;
-    setJwt(data.data.accessToken);
-    localStorage.setItem("jwt", data.data.accessToken);
-    setIsLoggedIn(true);
-    localStorage.setItem("isLoggedin", "true");
-    window.location.href = window.location.origin;
+    if (data.data === undefined) return alert("There Is Something Went Wrong!");
+    else {
+      setJwt(data.data.accessToken);
+      localStorage.setItem("jwt", data.data.accessToken);
+      setIsLoggedIn(true);
+      localStorage.setItem("isLoggedin", "true");
+      window.location.href = window.location.origin;
+    }
   };
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -64,8 +67,6 @@ export default function Login() {
 
     if (invalidInputs.length === 0) {
       // send req
-      console.log(typeof emailRef.current.value);
-      console.log(typeof passwordRef.current.value);
       LoginReq({
         email: emailRef.current.value,
         password: passwordRef.current.value,

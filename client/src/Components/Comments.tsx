@@ -5,43 +5,22 @@ import { useLogin } from "../Context/Login";
 import { useUser } from "../Context/User";
 import api_key from "../Services/Api_Url";
 import Comment from "./Comment";
+import Avatar from "./Avatar";
 
 export default function Comments({ post_id }) {
   const [comments, setComments] = useState<comments>([]);
-  const [username, setUsername] = useState<string>("");
-  const [avatar, setAvatar] = useState<string>("");
-
   const commentInputRef = useRef<HTMLInputElement>(null);
 
+  const { username, avatar } = useUser();
   const { jwt } = useLogin();
-  let config = {
-    headers: {
-      authorization: jwt,
-    },
-  };
 
   useEffect(() => {
     const getData = async () => {
       let res = await axios.get(`${api_key}/posts/get-one/${post_id}`);
       let comments = res.data.comments_content;
       setComments(comments);
-      console.log(res, comments);
     };
     getData();
-
-    const getUserData = async () => {
-      let res = await axios.get(`${api_key}/auth/me`, config);
-      let data: {
-        avatar: string;
-        email: string;
-        id: string;
-        username: string;
-      } = res.data.data;
-
-      setUsername(data.username);
-      setAvatar(data.avatar);
-    };
-    getUserData();
   }, []);
 
   const HandleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
@@ -66,9 +45,12 @@ export default function Comments({ post_id }) {
 
   return (
     <div className="post__comments">
-      {/* Insert your comment */}
       <div className="your_comment">
-        <img src={require("../images/profile pic.jpg")} alt="profile picture" />
+        <Avatar
+          src={require(`../images/profile pic.png`)}
+          width={32}
+          height={""}
+        />
         <input
           type="text"
           className="input"

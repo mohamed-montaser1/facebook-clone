@@ -7,6 +7,7 @@ import axios from "axios";
 import { useLogin } from "../Context/Login";
 import Alert from "../Components/Alert";
 import { SignupType } from "../../types/mainTypes";
+import { useSignup } from "../Context/Signup-VerifyAccount";
 
 let emailReg =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -14,6 +15,7 @@ let emailReg =
 export default function Register() {
   const { alreadyExist, setAlreadyExist, isSignedUp, setIsSignedUp } =
     useLogin();
+  const { setEmail, setPassword } = useSignup();
   // email error message
   const usernameRef = useRef<HTMLInputElement>(null);
   const usernameErrorMessage = useRef<HTMLParagraphElement>(null);
@@ -24,7 +26,7 @@ export default function Register() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordErrorMessage = useRef<HTMLParagraphElement>(null);
 
-  const [isShowPassword, setIsShowPassword] = useState(false);
+  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
 
   const Signup = async ({ username, email, password, avatar }: SignupType) => {
     const res = await axios.post(`${api_key}/auth/signup`, {
@@ -42,6 +44,13 @@ export default function Register() {
     } else {
       setAlreadyExist(false);
       setIsSignedUp(true);
+      localStorage.setItem("isSignedup", "true");
+      localStorage.setItem("email", email);
+      localStorage.setItem("pass", password);
+      setTimeout(() => {
+        // <Navigate to={"/verify-email"} />;
+        window.location.href = window.location.origin;
+      }, 400);
     }
   };
 
@@ -81,7 +90,7 @@ export default function Register() {
         username: usernameRef.current.value,
         email: emailRef.current.value,
         password: passwordRef.current.value,
-        avatar: "../images/profile pic.jpg",
+        avatar: "../images/profile pic.png",
       });
     }
   }
@@ -114,7 +123,7 @@ export default function Register() {
   return (
     <>
       {alreadyExist ? Alert("There is already user with submited email") : ""}
-      {isSignedUp ? <Navigate to={"/login"} /> : ""}
+      {isSignedUp ? <Navigate to={"/verify-email"} /> : ""}
       <div className="about">
         <h1>Mohamed Montaser's Social Media</h1>
         <p style={{ textTransform: "capitalize" }}>

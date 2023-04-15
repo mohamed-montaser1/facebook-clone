@@ -1,0 +1,32 @@
+body.verify-email {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .box {
+    height: 80vh;
+    background-color: #242526;
+    h1 {
+      color: #b8bbb8;
+      font-size: 40px;
+      text-align: center;
+      padding: 40px 0;
+    }
+    p {
+      color: #b8bbb8;
+      width: 60%;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .input-field {
+      width: 285px;
+      height: 37px;
+      background-color: transparent;
+      border: 1px solid #b8bbb8;
+      outline: none;
+      color: #b8bbb8;
+      padding: 0 16px;
+      margin: 20px auto;
+      display: block;
+    }
+  }
+}

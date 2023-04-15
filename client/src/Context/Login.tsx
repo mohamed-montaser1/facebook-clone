@@ -1,17 +1,20 @@
 import { useState, useContext, createContext, FC } from "react";
-import { loginProvider, loginType } from "../../types/mainTypes";
+import { providerType, loginType } from "../../types/mainTypes";
 
 const loginContext = createContext<Partial<loginType>>({});
 
 let initialLogin: boolean =
   Boolean(localStorage.getItem("isLoggedin")) || false;
 
+let initialSignup: boolean =
+  Boolean(localStorage.getItem("isSignedup")) || false;
+
 let jwtInitValue = String(localStorage.getItem("jwt")) || "";
 
-const LoginProvider: FC<loginProvider> = ({ children }): JSX.Element => {
+const LoginProvider: FC<providerType> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(initialLogin);
   const [alreadyExist, setAlreadyExist] = useState<boolean>(false);
-  const [isSignedUp, setIsSignedUp] = useState<boolean>(false);
+  const [isSignedUp, setIsSignedUp] = useState<boolean>(initialSignup);
   const [jwt, setJwt] = useState<string>(jwtInitValue);
 
   const LoginValue = {

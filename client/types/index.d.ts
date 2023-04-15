@@ -16,3 +16,8 @@ declare module "@iconscout/react-unicons" {
   export const UilEye: Icon;
   export const UilEyeSlash: Icon;
 }
+
+declare module "*.svg" {
+  const content: string;
+  export default content;
+}

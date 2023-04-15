@@ -9,16 +9,26 @@ import LoginProvider, { useLogin } from "./Context/Login";
 import MainPage from "./pages/Main";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import VerifyEmail from "./pages/VerifyEmail";
+import Navbar from "./Components/Navbar";
 
 export default function App() {
-  const { isLoggedIn } = useLogin();
+  const { isLoggedIn, isSignedUp } = useLogin();
 
   return (
     <Router>
       <Routes>
         <Route
           path="/"
-          element={isLoggedIn ? <MainPage /> : <Navigate to="/login" />}
+          element={
+            isLoggedIn ? (
+              <MainPage />
+            ) : isSignedUp ? (
+              <Navigate to={"/verify-email"} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/login"
@@ -27,6 +37,10 @@ export default function App() {
         <Route
           path="/register"
           element={!isLoggedIn ? <Register /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/verify-email"
+          element={isSignedUp ? <VerifyEmail /> : <Navigate to={"/login"} />}
         />
       </Routes>
     </Router>

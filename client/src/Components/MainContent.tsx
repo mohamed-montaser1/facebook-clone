@@ -1,83 +1,78 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { postsType } from "../../types/mainTypes";
+import { postType, postsType } from "../../types/mainTypes";
 import { useLogin } from "../Context/Login";
 import api_key from "../Services/Api_Url";
 import Modal from "./Modal";
+import Avatar from "./Avatar";
+import { useUser } from "../Context/User";
+import { Link } from "react-router-dom";
+import { BiComment, BiLike } from "react-icons/bi";
+import Reaction from "./React";
 import Post from "./Post";
 
 export default function MainContent() {
-  let [posts, setPosts] = useState<postsType>([]);
-  let [username, setUsername] = useState<string>();
-  let [showModal, setShowModal] = useState<boolean>(false);
-  let [reRender, setReRender] = useState<boolean>(false);
+  let [isShowModal, setIsShowModal] = useState<boolean>(false);
+  let [showReacts, setShowReacts] = useState<boolean>(false);
+  let [posts, setPosts] = useState<Array<Partial<postType>>>([]);
 
-  const { jwt } = useLogin();
+  const { username } = useUser();
+  const showModal = () => {
+    setIsShowModal(true);
+  };
 
   useEffect(() => {
-    const getPosts = async () => {
+    async function getAllPosts() {
       let res = await axios.get(`${api_key}/posts`);
-      let allPosts = res.data.allPosts;
-      setPosts(allPosts);
-    };
-    getPosts();
-  }, [reRender]);
-
-  useEffect(() => {
-    const getUsername = async () => {
-      let config = {
-        headers: {
-          authorization: jwt,
-        },
-      };
-      const res = await axios.get(`${api_key}/auth/me`, config);
-      setUsername(res.data.data.username);
-    };
-    getUsername();
+      setPosts(res.data.allPosts);
+      console.log(res.data.allPosts);
+    }
+    getAllPosts();
   }, []);
 
-  const handleOpenModal = () => {
-    setShowModal(true);
-  };
   return (
     <>
-      <div className="content">
-        <div className="post-container">
-          <div className="create-post">
-            <div className="create-post__header">
-              <img
-                src={require("../images/profile pic.jpg")}
-                alt="profile image"
-              />
-              <button onClick={handleOpenModal}>
-                What's on your mind, {username} ?
-              </button>
-            </div>
-          </div>
+      <div className="posts-container">
+        <div className="create-new-post">
+          <Link to={"/me"}>
+            <Avatar
+              src={require("../images/profile pic.png")}
+              width={40}
+              height={40}
+              className="rounded-circle"
+            />
+          </Link>
+          <p onClick={showModal}>What's on your mind, {username} ?</p>
+          <Modal
+            setShowModal={setIsShowModal}
+            className={`${isShowModal ? "show" : ""}`}
+          />
+        </div>
+        <div className="all-posts">
           {posts.map((post) => {
             return (
               <Post
-                key={post._id}
                 _id={post._id}
-                username={post.author_name}
+                likes={post.likes}
+                loves={post.loves}
+                haha={post.haha}
+                wow={post.wow}
+                sad={post.sad}
+                angry={post.angry}
+                author_avatar={post.author_avatar}
+                author_name={post.author_name}
+                comments_content={post.comments_content}
+                comments_count={post.comments_count}
                 content={post.content}
-                comments={post.comments_count}
-                likes={post.likes_count}
+                createdAt={post.createdAt}
                 date={post.date}
+                updatedAt={post.updatedAt}
+                key={post._id}
               />
             );
           })}
         </div>
       </div>
-      {showModal ? (
-        <Modal
-          username={"mohamed"}
-          setShowModal={setShowModal}
-          setReRender={setReRender}
-        />
-      ) : (
-        ""
-      )}
     </>
   );
 }

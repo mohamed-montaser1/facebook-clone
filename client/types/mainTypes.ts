@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 
 export interface loginType {
   isLoggedIn: boolean;
@@ -28,11 +28,16 @@ export interface UserContextType {
   getUserData: () => Promise<void>;
 }
 
+export interface PostContextType {
+  author_name: string;
+  setAuthor_name: setString;
+}
+
 export interface userType {
   x: boolean;
 }
 
-export type loginProvider = {
+export type providerType = {
   // children: Array<JSX.Element>;
   children: React.ReactNode;
 };
@@ -71,8 +76,34 @@ export type postsType = Array<{
   date: Date;
 }>;
 
-export type comments = {
+export type comments = Array<{
   username: string;
   user_avatar: string;
   user_comment: string;
-}[];
+}>;
+
+export type setString = React.Dispatch<React.SetStateAction<string>>;
+export type setNumber = React.Dispatch<React.SetStateAction<number>>;
+export type setBoolean = React.Dispatch<React.SetStateAction<boolean>>;
+
+export type postType = {
+  likes: number;
+  loves: number;
+  haha: number;
+  wow: number;
+  sad: number;
+  angry: number;
+  author_avatar: string;
+  author_name: string;
+  comments_content: Array<{
+    username: string;
+    user_avatar: string;
+    user_comment: string;
+  }>;
+  comments_count: number;
+  content: string;
+  createdAt: Date;
+  date?: Date;
+  updatedAt: Date;
+  _id: string;
+};

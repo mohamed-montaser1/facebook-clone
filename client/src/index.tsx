@@ -4,11 +4,19 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import LoginProvider from "./Context/Login";
-
+import UserProvider from "./Context/User";
+import PostProvider from "./Context/Post";
+import { SignUpProvider } from "./Context/Signup-VerifyAccount";
 const root = createRoot(document.getElementById("root"));
 
 root.render(
   <LoginProvider>
-    <App />
+    <UserProvider>
+      <PostProvider>
+        <SignUpProvider>
+          <App />
+        </SignUpProvider>
+      </PostProvider>
+    </UserProvider>
   </LoginProvider>
 );
