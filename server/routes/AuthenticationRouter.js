@@ -1,4 +1,9 @@
-const { signUp, login, me } = require("../controllers/AuthController");
+const {
+  signUp,
+  me,
+  loginByVerify,
+  login,
+} = require("../controllers/AuthController");
 const { verifyJWT } = require("../utilities/jwtHelper");
 
 const router = require("express").Router();

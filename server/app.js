@@ -8,6 +8,7 @@ const cors = require("cors");
 // routes
 const AuthRouter = require("./routes/AuthenticationRouter");
 const PostsRouter = require("./routes/PostsRouter");
+const VerifyEmail = require("./controllers/VeryfyEmailController");
 
 require("dotenv").config();
 const app = express();
@@ -20,7 +21,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", AuthRouter);
 app.use("/api/posts", PostsRouter);
-
+app.use("/api/verify-email/:receiver", VerifyEmail);
 mongoose.connect(process.env.DB_URL).then(() => {
   console.log("Connected!");
 });

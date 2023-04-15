@@ -1,4 +1,4 @@
-const User = require("../models/users");
+const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const { signJWT } = require("../utilities/jwtHelper");
 
@@ -19,7 +19,7 @@ const { signJWT } = require("../utilities/jwtHelper");
 
 exports.signUp = async (req, res) => {
   const { username, email, password, avatar } = req.body.data;
-  console.log(req.body.data);
+
   const user = await User.findOne({ email });
   if (user == null) {
     // Create User

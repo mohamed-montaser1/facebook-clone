@@ -1,5 +1,5 @@
 let Post = require("../models/post");
-
+let User = require("../models/user");
 /**
  *
  * @param {Request} req
@@ -34,9 +34,17 @@ exports.getOne = async (req, res) => {
  */
 
 exports.create = async (req, res) => {
-  const { author_name, author_avatar, content } = req.body.data;
+  const { author_name, author_avatar, author_id, content } = req.body.data;
+  const user = await User.findById(author_id);
 
-  let likes_count = 0;
+  let reactions = {
+    likes: 0,
+    loves: 0,
+    haha: 0,
+    wow: 0,
+    sad: 0,
+    angry: 0,
+  };
 
   let comments_content = [];
   let comments_count = 0;
@@ -45,20 +53,22 @@ exports.create = async (req, res) => {
     author_avatar,
     author_name,
     content,
-    likes_count,
+    ...reactions,
     comments_content,
     comments_count,
   });
 
+  user.posts.push(post);
   try {
     await post.save();
+    await user.save();
     res.status(201).json({
       success: true,
       message: "Created Successfuly",
     });
   } catch (error) {
     res.json(error);
-    console.log(error);
+    console.log("create error: ", error);
   }
 };
 /**
@@ -75,7 +85,7 @@ exports.deletePost = async (req, res) => {
       message: "deleted Sucessfuly!",
     });
   } catch (error) {
-    console.log(error);
+    console.log("delete error: ", error);
     res.json({
       error,
     });
@@ -105,7 +115,7 @@ exports.addComment = async (req, res) => {
       message: "Comment Inserted Successfuly",
     });
   } catch (error) {
-    console.log(error);
+    console.log("comment insterting error: ", error);
     res.json(error);
   }
 };

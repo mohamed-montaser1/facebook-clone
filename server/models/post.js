@@ -11,9 +11,35 @@ const PostSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    likes_count: {
+    likes: {
       type: Number,
       required: true,
+      default: 0,
+    },
+    loves: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    haha: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    wow: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    sad: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    angry: {
+      type: Number,
+      required: true,
+      default: 0,
     },
     comments_content: [
       {
@@ -28,8 +54,8 @@ const PostSchema = mongoose.Schema(
     },
     date: {
       type: Date,
-      default: Date.now()
-    }
+      default: Date.now(),
+    },
   },
   {
     timestamps: true,
