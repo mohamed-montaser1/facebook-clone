@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import VerifyEmail from "./pages/VerifyEmail";
 import Navbar from "./Components/Navbar";
+import Post from "./pages/Post";
 
 export default function App() {
   const { isLoggedIn, isSignedUp } = useLogin();
@@ -42,6 +43,7 @@ export default function App() {
           path="/verify-email"
           element={isSignedUp ? <VerifyEmail /> : <Navigate to={"/login"} />}
         />
+        <Route path="/post/:postId" element={<Post />} />
       </Routes>
     </Router>
   );

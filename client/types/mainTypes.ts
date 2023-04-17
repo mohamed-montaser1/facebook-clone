@@ -87,14 +87,72 @@ export type setNumber = React.Dispatch<React.SetStateAction<number>>;
 export type setBoolean = React.Dispatch<React.SetStateAction<boolean>>;
 
 export type postType = {
-  likes: number;
-  loves: number;
-  haha: number;
-  wow: number;
-  sad: number;
-  angry: number;
+  likes: {
+    count: number;
+    users: [
+      {
+        username: string;
+        user_avatar: string;
+      }
+    ];
+  };
+  loves: {
+    count: number;
+    users: [
+      {
+        username: string;
+        user_avatar: string;
+      }
+    ];
+  };
+  haha: {
+    count: number;
+    users: [
+      {
+        username: string;
+        user_avatar: string;
+      }
+    ];
+  };
+  wow: {
+    count: number;
+    users: [
+      {
+        username: string;
+        user_avatar: string;
+      }
+    ];
+  };
+  sad: {
+    count: number;
+    users: [
+      {
+        username: string;
+        user_avatar: string;
+      }
+    ];
+  };
+  care: {
+    count: number;
+    users: [
+      {
+        username: string;
+        user_avatar: string;
+      }
+    ];
+  };
+  angry: {
+    count: number;
+    users: [
+      {
+        username: string;
+        user_avatar: string;
+      }
+    ];
+  };
   author_avatar: string;
   author_name: string;
+  image: string;
   comments_content: Array<{
     username: string;
     user_avatar: string;

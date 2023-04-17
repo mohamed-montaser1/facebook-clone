@@ -42,7 +42,9 @@ export default function MainContent() {
               className="rounded-circle"
             />
           </Link>
-          <p onClick={showModal}>What's on your mind, {username} ?</p>
+          <p onClick={showModal} className="show-modal-p">
+            What's on your mind, {username} ?
+          </p>
           <Modal
             setShowModal={setIsShowModal}
             className={`${isShowModal ? "show" : ""}`}
@@ -52,12 +54,14 @@ export default function MainContent() {
           {posts.map((post) => {
             return (
               <Post
+                key={post._id}
                 _id={post._id}
-                likes={post.likes}
+                likes={post.likes.}
                 loves={post.loves}
                 haha={post.haha}
                 wow={post.wow}
                 sad={post.sad}
+                care={post.care}
                 angry={post.angry}
                 author_avatar={post.author_avatar}
                 author_name={post.author_name}
@@ -66,8 +70,8 @@ export default function MainContent() {
                 content={post.content}
                 createdAt={post.createdAt}
                 date={post.date}
+                image={post.image}
                 updatedAt={post.updatedAt}
-                key={post._id}
               />
             );
           })}

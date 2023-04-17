@@ -20,7 +20,15 @@ module.exports = {
     compress: true,
     port: 3000,
     historyApiFallback: true,
+    client: {
+      overlay: {
+        errors: true,
+        warnings: false,
+      },
+    },
   },
+  stats: { warnings: false },
+
   module: {
     rules: [
       // html [1]
@@ -64,8 +72,5 @@ module.exports = {
       template: "./public/index.html",
     }),
     new MiniCssExtractPlugin({ filename: "css/style.css" }),
-    new MomentLocalesPlugin({
-      localesToKeep: ["ar-EG"],
-    }),
   ],
 };

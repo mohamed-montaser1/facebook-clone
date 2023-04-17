@@ -7,39 +7,115 @@ const PostSchema = mongoose.Schema(
       required: true,
     },
     author_avatar: String,
-    content: {
+    content: String,
+    image: {
       type: String,
-      required: true,
+      default: "",
     },
     likes: {
-      type: Number,
-      required: true,
-      default: 0,
+      count: {
+        type: Number,
+        default: 0,
+      },
+      users: {
+        type: [
+          {
+            username: String,
+            user_avatar: String,
+          },
+        ],
+        default: [],
+      },
     },
     loves: {
-      type: Number,
-      required: true,
-      default: 0,
+      count: {
+        type: Number,
+        default: 0,
+      },
+      users: {
+        type: [
+          {
+            username: String,
+            user_avatar: String,
+          },
+        ],
+        default: [],
+      },
+    },
+    care: {
+      count: {
+        type: Number,
+        default: 0,
+      },
+      users: {
+        type: [
+          {
+            username: String,
+            user_avatar: String,
+          },
+        ],
+        default: [],
+      },
     },
     haha: {
-      type: Number,
-      required: true,
-      default: 0,
+      count: {
+        type: Number,
+        default: 0,
+      },
+      users: {
+        type: [
+          {
+            username: String,
+            user_avatar: String,
+          },
+        ],
+        default: [],
+      },
     },
     wow: {
-      type: Number,
-      required: true,
-      default: 0,
+      count: {
+        type: Number,
+        default: 0,
+      },
+      users: {
+        type: [
+          {
+            username: String,
+            user_avatar: String,
+          },
+        ],
+        default: [],
+      },
     },
     sad: {
-      type: Number,
-      required: true,
-      default: 0,
+      count: {
+        type: Number,
+        default: 0,
+      },
+      users: {
+        type: [
+          {
+            username: String,
+            user_avatar: String,
+          },
+        ],
+        default: [],
+      },
     },
     angry: {
-      type: Number,
-      required: true,
-      default: 0,
+      count: {
+        type: Number,
+        default: 0,
+      },
+      users: {
+        type: [
+          {
+            username: String,
+            user_avatar: String,
+          },
+        ],
+        default: [],
+      },
     },
     comments_content: [
       {

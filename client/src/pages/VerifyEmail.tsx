@@ -39,6 +39,7 @@ export default function VerifyEmail() {
           );
           let accessToken = res.data.data.accessToken;
           setJwt(accessToken);
+          localStorage.clear();
           localStorage.setItem("jwt", accessToken);
           setIsLoggedIn(true);
           localStorage.setItem("isLoggedin", "true");

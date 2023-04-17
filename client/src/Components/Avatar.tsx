@@ -10,7 +10,7 @@ interface Props {
 export default function Avatar({ src, className, width, height }: Props) {
   return (
     <img
-      src={src}
+      src={src === "" ? require("../images/profile pic.png") : src}
       className={`${className}`}
       width={width}
       height={height}

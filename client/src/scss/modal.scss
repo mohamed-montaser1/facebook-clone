@@ -19,8 +19,11 @@
   .newpost-modal {
     background-color: #242526 !important;
     width: 600px !important;
-    height: 420px;
+    min-height: 420px;
+    max-height: 575px;
     border-radius: 10px;
+    padding-bottom: 20px;
+    overflow-y: auto;
     .newpost-modal__header {
       padding-block: 20px;
       position: relative;
@@ -80,12 +83,77 @@
       resize: none;
       background-color: #242526 !important;
       color: #e4e6eb;
+      & ~ .img-container {
+        position: relative;
+        img {
+          width: 100%;
+          margin: 0 auto 28px;
+          display: block;
+        }
+        h1 {
+          color: white;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          translate: -50% -50%;
+          font-size: 37px;
+        }
+        .delete-img {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          background-color: black;
+          border: none;
+          outline: none;
+          border-radius: 50%;
+        }
+        &.image-loading {
+          min-height: 400px;
+        }
+      }
+    }
+
+    .options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 50px;
+      width: 90%;
+      margin: 0 auto 20px;
+      border: 1px solid #e4e6eb;
+      border-radius: 5px;
+      padding: 15px;
+      p {
+        color: #e4e6eb;
+      }
+      .upload-img {
+        background: transparent;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        .icon {
+          background-size: auto;
+          background-repeat: no-repeat;
+          display: inline-block;
+          height: 24px;
+          width: 24px;
+          background-image: url(../images/icon.png);
+          background-position: 0 -150px;
+        }
+        .content {
+          color: #e4e4e4;
+        }
+      }
     }
     .post-button {
       background-color: #1b74e4;
       border-radius: 10px;
       color: white;
-      width: 86%;
+      width: 90%;
       height: 40px;
       font-size: 20px;
       font-weight: 600;
