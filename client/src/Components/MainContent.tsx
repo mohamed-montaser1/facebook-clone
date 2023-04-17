@@ -56,7 +56,7 @@ export default function MainContent() {
               <Post
                 key={post._id}
                 _id={post._id}
-                likes={post.likes.}
+                likes={post.likes}
                 loves={post.loves}
                 haha={post.haha}
                 wow={post.wow}

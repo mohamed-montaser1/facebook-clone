@@ -223,7 +223,7 @@ export default function Post({
                   <div
                     className="comment"
                     style={{ marginBottom: "20px" }}
-                    key={Math.floor(Math.random() * 1000)}
+                    key={Math.floor(Math.random() * 1000000)}
                   >
                     <Avatar
                       src={""}
