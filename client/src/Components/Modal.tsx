@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import api_key from "../Services/Api_Url";
 import { useUser } from "../Context/User";
 import { setBoolean } from "../../types/mainTypes";
-import { MdOutlinePhotoSizeSelectActual } from "react-icons/md";
+
 interface Props {
   setShowModal: setBoolean;
   className: string;
@@ -22,7 +22,8 @@ export default function Modal({ setShowModal, className }: Props) {
   });
 
   const createNewPost = async () => {
-    let value = textareaRef.current.value !== "" ? textareaRef.current.value : "";
+    let value =
+      textareaRef.current.value !== "" ? textareaRef.current.value : "";
     let body = {
       data: {
         author_name: username,
@@ -33,6 +34,7 @@ export default function Modal({ setShowModal, className }: Props) {
       },
     };
     const res = await axios.post(`${api_key}/posts/create`, body);
+
     if (res.data.message === "Created Successfuly") {
       closeRef.current.click();
       window.location.href = window.location.origin;

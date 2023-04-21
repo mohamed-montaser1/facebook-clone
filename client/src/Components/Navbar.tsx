@@ -11,8 +11,10 @@ import { useLogin } from "../Context/Login";
 import { useSignup } from "../Context/Signup-VerifyAccount";
 
 let activeColor = "#1876f2";
-
-export default function Navbar(): JSX.Element {
+type Props = {
+  notfound?: boolean;
+};
+export default function Navbar({ notfound }: Props): JSX.Element {
   const { username } = useUser();
   const { setIsLoggedIn, setJwt, setIsSignedUp } = useLogin();
   const { setEmail, setPassword } = useSignup();
@@ -60,78 +62,101 @@ export default function Navbar(): JSX.Element {
               </svg>
             </li>
           </Link>
-          <Link to={"/friends"}>
-            <li className="navigation-menu__item rounded">
-              <Friends />
-            </li>
-          </Link>
+          {notfound ? (
+            ""
+          ) : (
+            <Link to={"/friends"}>
+              <li className="navigation-menu__item rounded">
+                <Friends />
+              </li>
+            </Link>
+          )}
         </ul>
-        <div className="info">
-          <Link to={"/me"}>
-            <div className="me">
-              <Avatar
-                src={require("../images/profile pic.png")}
-                width={"30"}
-                height={"30"}
-                className="rounded-circle"
+        {notfound ? (
+          ""
+        ) : (
+          <>
+            <div className="info">
+              <Link to={"/me"}>
+                <div className="me">
+                  <Avatar
+                    src={require("../images/profile pic.png")}
+                    width={"30"}
+                    height={"30"}
+                    className="rounded-circle"
+                  />
+                  <p>{username}</p>
+                </div>
+              </Link>
+              <FaBell onClick={() => setShowNotification((prev) => !prev)} />
+              <AiOutlineCaretDown
+                onClick={() => setShowOptions((prev) => !prev)}
               />
-              <p>{username}</p>
+              <FaChrome
+                className="chrome"
+                onClick={() => setShowPages((prev) => !prev)}
+              />
             </div>
-          </Link>
-          <FaBell onClick={() => setShowNotification((prev) => !prev)} />
-          <AiOutlineCaretDown onClick={() => setShowOptions((prev) => !prev)} />
-          <FaChrome
-            className="chrome"
-            onClick={() => setShowPages((prev) => !prev)}
-          />
-        </div>
+          </>
+        )}
       </nav>
-      <div
-        className={`notification-container ${showNotification ? "show" : ""}`}
-      >
-        <h2>Notifications</h2>
-        <p>No Notifications Right Now</p>
-      </div>
-      <div className={`menu-container ${showOptions ? "show" : ""}`}>
-        <Link to={"/me"}>
-          <div className="profile-info">
-            <Avatar
-              src={require("../images/profile pic.png")}
-              width={"60"}
-              height={"60"}
-              className="rounded-circle"
-            />
-            <div className="text">
-              <h3>{username}</h3>
-              <p>See Your Profile</p>
+      {notfound ? (
+        ""
+      ) : (
+        <>
+          <div
+            className={`notification-container ${
+              showNotification ? "show" : ""
+            }`}
+          >
+            <h2>Notifications</h2>
+            <p>No Notifications Right Now</p>
+          </div>
+          <div className={`menu-container ${showOptions ? "show" : ""}`}>
+            <Link to={"/me"}>
+              <div className="profile-info">
+                <Avatar
+                  src={require("../images/profile pic.png")}
+                  width={"60"}
+                  height={"60"}
+                  className="rounded-circle"
+                />
+                <div className="text">
+                  <h3>{username}</h3>
+                  <p>See Your Profile</p>
+                </div>
+              </div>
+            </Link>
+            <ul className="menu-options">
+              <li>
+                <BsFillGearFill className="icon" />
+                <p>Settings</p>
+              </li>
+              <li onClick={showLogoutChoosesHandler}>
+                <BiExit className="icon" />
+                <p>Logout</p>
+              </li>
+            </ul>
+          </div>
+          <div className={`all-pages ${showPages ? "show" : ""}`}></div>
+          <div className={`logout-overlay ${showLogoutChooses ? "show" : ""}`}>
+            <div className="logout-sure">
+              <h2>Are You Sure You Want To Logout ?</h2>
+              <div className="buttons-container">
+                <button className="yes" onClick={Logout}>
+                  Yes
+                </button>
+                <button
+                  className="no"
+                  onClick={() => setShowLogoutChooses(false)}
+                >
+                  No
+                </button>
+              </div>
             </div>
           </div>
-        </Link>
-        <ul className="menu-options">
-          <li>
-            <BsFillGearFill className="icon" />
-            <p>Settings</p>
-          </li>
-          <li onClick={showLogoutChoosesHandler}>
-            <BiExit className="icon" />
-            <p>Logout</p>
-          </li>
-        </ul>
-      </div>
-      <div className={`all-pages ${showPages ? "show" : ""}`}></div>
-      <div className={`logout-overlay ${showLogoutChooses ? "show" : ""}`}>
-        <div className="logout-sure">
-          <h2>Are You Sure You Want To Logout ?</h2>
-          <div className="buttons-container">
-            <button className="yes" onClick={Logout}>
-              Yes
-            </button>
-            <button className="no" onClick={() => setShowLogoutChooses(false)}>
-              No
-            </button>
-          </div>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 }

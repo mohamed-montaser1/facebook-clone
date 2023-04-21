@@ -48,14 +48,6 @@ export default function Post({
   //   getUserAvatar();
   // }, []);
 
-  const HandleLike = () => {};
-  const HandleLove = () => {};
-  const HandleCare = () => {};
-  const HandleLol = () => {};
-  const HandleWow = () => {};
-  const HandleSad = () => {};
-  const HandleAngry = () => {};
-
   const handleAddComment = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       if (inputRef.current.value.trim() !== "") {
@@ -107,7 +99,7 @@ export default function Post({
           <div className="post-content">
             <p>{content}</p>
             {image !== "" ? (
-              <Link to={`/post/${_id}`}>
+              <Link to={`/post/${_id}/${id}`}>
                 <img
                   src={image}
                   className="mb-5 post-image"
@@ -139,7 +131,7 @@ export default function Post({
                 />
               </div>
               <p className="reach-count">
-                {[
+                {/* {[
                   likes.count,
                   loves.count,
                   haha.count,
@@ -147,7 +139,7 @@ export default function Post({
                   wow.count,
                   sad.count,
                   angry.count,
-                ].reduce((acc, curr) => acc + curr)}
+                ].reduce((acc, curr) => acc + curr)} */}
               </p>
             </div>
             <p
@@ -164,43 +156,6 @@ export default function Post({
             <button onClick={() => setShowComments((prev) => !prev)}>
               <BiComment /> Comment
             </button>
-            <div className={`reacts`}>
-              <Reaction
-                src={require("../images/like.png")}
-                className="reaction"
-                onClick={HandleLike}
-              />
-              <Reaction
-                src={require("../images/love.png")}
-                className="reaction"
-                onClick={HandleLove}
-              />
-              <Reaction
-                src={require("../images/care.png")}
-                className="reaction"
-                onClick={HandleCare}
-              />
-              <Reaction
-                src={require("../images/haha.png")}
-                className="reaction"
-                onClick={HandleLol}
-              />
-              <Reaction
-                src={require("../images/wow.png")}
-                className="reaction"
-                onClick={HandleWow}
-              />
-              <Reaction
-                src={require("../images/sad.png")}
-                className="reaction"
-                onClick={HandleSad}
-              />
-              <Reaction
-                src={require("../images/angry.png")}
-                className="reaction"
-                onClick={HandleAngry}
-              />
-            </div>
           </div>
           <div className={`comments-section ${showComments ? "show" : ""}`}>
             <div className="new-comment">

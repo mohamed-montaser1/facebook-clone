@@ -25,7 +25,7 @@ export interface UserContextType {
   setId: React.Dispatch<React.SetStateAction<string>>;
   username: string;
   setUsername: React.Dispatch<React.SetStateAction<string>>;
-  getUserData: () => Promise<void>;
+  getUserData: () => void;
 }
 
 export interface PostContextType {

@@ -25,6 +25,7 @@ interface userValueType {
   avatar: string;
   setAvatar: setString;
   id: string;
+  getUserData: () => void;
 }
 
 export default function UserProvider({ children }: providerType) {
@@ -62,6 +63,7 @@ export default function UserProvider({ children }: providerType) {
     avatar,
     setAvatar,
     id,
+    getUserData,
   };
 
   return (

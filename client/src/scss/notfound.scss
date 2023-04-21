@@ -1,0 +1,55 @@
+body.notfound {
+  .content-container {
+    height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .content {
+      text-align: center;
+      .notfound-img {
+        width: 112px;
+        height: 112px;
+      }
+      h3 {
+        color: #e6e6e6;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 24px;
+        height: 24px;
+        width: 452px;
+        max-width: 100%;
+        margin-top: 14px;
+      }
+      p {
+        color: #e4e4e4;
+        font-size: 17px;
+        line-height: 20.0005px;
+        height: 60px;
+        width: 452px;
+        max-width: 100%;
+        margin-top: 8px;
+        margin-bottom: 20px;
+      }
+      button {
+        background-color: #1b74e4;
+        height: 40px;
+        width: 211.328px;
+        padding: 0 40px;
+        min-height: auto;
+        min-width: auto;
+        font-size: 17px;
+        font-weight: 600;
+        line-height: 20.0005px;
+        white-space: nowrap;
+        color: #e5e5e5;
+        border: none;
+        outline: none;
+        border-radius: 7px;
+        transition: background-color 300ms linear;
+        &:hover {
+          background-color: #1b75e4b2;
+        }
+      }
+    }
+  }
+}

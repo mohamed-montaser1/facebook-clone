@@ -12,6 +12,7 @@ import Register from "./pages/Register";
 import VerifyEmail from "./pages/VerifyEmail";
 import Navbar from "./Components/Navbar";
 import Post from "./pages/Post";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
   const { isLoggedIn, isSignedUp } = useLogin();
@@ -43,7 +44,8 @@ export default function App() {
           path="/verify-email"
           element={isSignedUp ? <VerifyEmail /> : <Navigate to={"/login"} />}
         />
-        <Route path="/post/:postId" element={<Post />} />
+        <Route path="/post/:postId/:userId" element={<Post />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </Router>
   );

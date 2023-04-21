@@ -25,12 +25,6 @@ const UserSchema = mongoose.Schema(
           author_avatar: String,
           author_name: String,
           content: String,
-          likes: Number,
-          loves: Number,
-          haha: Number,
-          wow: Number,
-          sad: Number,
-          angry: Number,
           comments_content: {
             type: [
               {
